@@ -8,8 +8,8 @@ set -x
 # reliably used in the frontend's config file.
 exec sudo docker run \
     -e SITE_PORT=$DISCOURSE_PORT \
-    -e SITE_HOST=$HOSTIP \
-    -e SITE_NAME=discourse.example.com \
+    -e SITE_HOST=172.17.0.143 \
+    -e SITE_NAME=15.185.183.58 \
     -p $NGINX_PORT:80 \
     -v $(pwd)/data/discourse-public:/discourse-public \
     srid/discourse-nginx:1.3

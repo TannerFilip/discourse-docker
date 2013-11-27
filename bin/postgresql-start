@@ -4,6 +4,4 @@ set -e
 . etc/env
 
 set -x
-exec sudo docker run \
-    -v $(pwd)/data/postgres:/var/lib/postgresql \
-    srid/postgresql:9.1
+echo "This doesn't need to exist either."

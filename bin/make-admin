@@ -12,7 +12,7 @@ fi
 
 . bin/postgresql-info
 
-export PGPASSWORD=postgres
+export PGPASSWORD=$POSTGRES_PASS
 # CMD="psql -p $POSTGRES_PORT -U root -h $POSTGRES_HOST -d postgres"
 
 set -x

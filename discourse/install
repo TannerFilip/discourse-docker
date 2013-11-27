@@ -50,6 +50,7 @@ bundle install --deployment --without test
 
 pushd config
 cp database.yml.production-sample database.yml
+sed 's/username\:\ root/username\:\ discourse/g' database.yml 
 cp redis.yml.sample redis.yml
 cp environments/production.rb.sample environments/production.rb
 popd
