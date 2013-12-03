@@ -3,6 +3,7 @@
 
 # Top-level domain of your Discourse site. This will be added to rails
 # database.yml
+source credentials
 export DISCOURSE_HOST="discourse.mozilla-community.org"
 
 # Port to which the Discourse rails server will bind to by default.
