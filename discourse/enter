@@ -3,7 +3,8 @@
 # -*- mode: sh -*-
 
 set -e
-source ./bin/postgres-info
+#source ../bin/postgresql-info
+source ../etc/credentials-template
 
 ARGV=$@
 
@@ -34,10 +35,10 @@ function run_cmd {
 
 function configure_from_env {
 # production database
-    sed -i "s/database: postgres/database: discourse/" config/database.yml
-    sed -i "s/# username: root/username: $POSTGRES_USER/" config/database.yml
-    sed -i "s/# password: postgres/ipassword: $POSTGRES_PASS/" config/database.yml
-    sed -i "s/# host: /host: $POSTGRES_HOST\n  port: $POSTGRES_PORT/" config/database.yml
+ #   sed -i "s/database: postgres/database: discourse/" config/database.yml
+ #   sed -i "s/# username: root/username: $POSTGRES_USER/" config/database.yml
+ #   sed -i "s/# password: postgres/ipassword: $POSTGRES_PASS/" config/database.yml
+ #   sed -i "s/# host: /host: $POSTGRES_HOST\n  port: $POSTGRES_PORT/" config/database.yml
 
 # test db
     sed -i "s/# username: discourse_test/username: $POSTGRES_USER/" config/database.yml
@@ -48,21 +49,33 @@ function configure_from_env {
     sed -i "s/production.localhost/$DISCOURSE_HOST/" config/database.yml
 
 # http://stackoverflow.com/a/7529711
-    sed -i "s/timeout: 5000/timeout: 5000\n  template: template0/" config/database.yml
+   sed -i "s/timeout: 5000/timeout: 5000\n  template: template0/" config/database.yml
 
 # postmark mailer
-    if [ ! -z "$POSTMARK_API_KEY" ]; then
-        sed -i "s/sendmail/postmark/" config/environments/production.rb
-        sed -i "s/{arguments: '-i'}/{ :api_key => \"$POSTMARK_API_KEY\" }/" config/environments/production.rb
-    fi
+#    if [ ! -z "$POSTMARK_API_KEY" ]; then
+#        sed -i "s/sendmail/postmark/" config/environments/production.rb
+#        sed -i "s/{arguments: '-i'}/{ :api_key => \"$POSTMARK_API_KEY\" }/" config/environments/production.rb
+#    fi
+#
+#    if [ ! -z "$DEBUG" ]; then
+#        echo "production.rb =>"
+#        cat /discourse/config/environments/production.rb
+#        echo "database.yml =>"
+#        cat /discourse/config/database.yml
+#        echo "RAILS_ENV: $RAILS_ENV"
+#    fi
 
-    if [ ! -z "$DEBUG" ]; then
-        echo "production.rb =>"
-        cat /discourse/config/environments/production.rb
-        echo "database.yml =>"
-        cat /discourse/config/database.yml
-        echo "RAILS_ENV: $RAILS_ENV"
-    fi
+# set up smtp
+    sed -i "s/# config.action_mailer.delivery_method/config.action_mailer.delivery_method/" config/environments/production.rb
+    sed -i "s/# config.action_mailer.smtp_settings/config.action_mailer.smtp_settings/" config/environments/production.rb
+    sed -i "s/# :address => \"smtp.sendgrid.net\"/:address => \"$SMTP_HOST\"/" config/environments/production.rb
+    sed -i "s/# :port => 587/:port => $SMTP_PORT/" config/environments/production.rb
+    sed -i "s/# :domain => 'YOUR DOMAIN'/:domain => '$SMTP_DOMAIN'/" config/environments/production.rb
+    sed -i "s/# :user_name => 'YOUR_USER'/:user_name => '$SMTP_USER'/" config/environments/production.rb
+    sed -i "s/# :password => 'YOUR_PASSWORD'/:password => '$SMTP_PASS'/" config/environments/production.rb
+    sed -i "s/# :authentication => 'plain'/:authentication => '$SMTP_AUTH'/" config/environments/production.rb
+    sed -i "s/# :enable_starttls_auto => true/:enable_starttls_auto => $SMTP_TLSAUTO/" config/environments/production.rb
+       
 }
 
 configure_from_env
