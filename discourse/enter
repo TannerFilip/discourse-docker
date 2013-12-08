@@ -4,7 +4,7 @@
 
 set -e
 #source ../bin/postgresql-info
-source ../etc/credentials-template
+source ./etc/credentials
 
 ARGV=$@
 

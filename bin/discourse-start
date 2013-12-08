@@ -8,7 +8,8 @@ source bin/redis-info
 
 START_DISCOURSE="sudo docker run \
      -e REDIS_PROVIDER_URL=$REDIS_PROVIDER_URL \
-     -e POSTGRES_HOST=$POSTGRES_HOST -e POSTGRES_PORT=$POSTGRES_PORT \
+     -e POSTGRES_HOST=$POSTGRES_HOST \
+     -e POSTGRES_PORT=$POSTGRES_PORT \
      -e POSTGRES_USER=$POSTGRES_USER \
      -e POSTMARK_API_KEY=$POSTMARK_API_KEY \
      -e DISCOURSE_HOST=$DISCOURSE_HOST \
@@ -17,8 +18,9 @@ START_DISCOURSE="sudo docker run \
 if [ "$1" = "web" ]; then
     # TODO: use random port on host, and change nginx-start
     # accordingly.
-    START_DISCOURSE="$START_DISCOURSE -p :3000"
+    START_DISCOURSE="$START_DISCOURSE -p 3000:3000"
 fi
 
 set -x
 exec $START_DISCOURSE srid/discourse $@
+
