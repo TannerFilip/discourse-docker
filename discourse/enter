@@ -3,9 +3,9 @@
 # -*- mode: sh -*-
 
 set -e
-#source ../bin/postgresql-info
-source ../etc/credentials-template
-
+#source ./bin/postgresql-info
+source ./etc/credentials-template
+echo $DISCOURSE_HOST
 ARGV=$@
 
 function setup {
