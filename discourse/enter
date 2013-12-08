@@ -3,9 +3,15 @@
 # -*- mode: sh -*-
 
 set -e
+<<<<<<< HEAD
 #source ../bin/postgresql-info
 source ./etc/credentials
 
+=======
+#source ./bin/postgresql-info
+source ./etc/credentials-template
+echo $DISCOURSE_HOST
+>>>>>>> 4af33178f66adea856398743e12b3773447361cf
 ARGV=$@
 
 function setup {
