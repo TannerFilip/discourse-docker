@@ -36,9 +36,9 @@ function run_cmd {
 function configure_from_env {
 # production database
     sed -i "s/database: postgres/database: discourse/" config/database.yml
-    sed -i "s/# username: root/username: '$POSTGRES_USER'/" config/database.yml
-    sed -i "s/# password: postgres/password: '$POSTGRES_PASS'/" config/database.yml
-    sed -i "s/# host: dbhost/host: '$POSTGRES_HOST'\n  port: '$POSTGRES_PORT'/" config/database.yml
+    sed -i "s/# username: discourse_prod/username: '$POSTGRES_USER'/" config/database.yml
+    sed -i "s/# password: itisagooddaytovi/password: '$POSTGRES_PASS'/" config/database.yml
+    sed -i "s/# host: dbhost/host: '$POSTGRES_HOST'\n port: '$POSTGRES_PORT'/" config/database.yml
 
 # test db
     sed -i "s/# username: discourse_test/username: '$POSTGRES_USER'/" config/database.yml
