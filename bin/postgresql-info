@@ -3,9 +3,5 @@
 
 set -e
 . etc/env
-
-export POSTGRES_HOST="postgres.cragayvcn0c5.us-west-2.rds.amazonaws.com"
-export POSTGRES_PORT=5432
-export POSTGRES_PASS="aP8hQSBCwVkYmLryFPJ_FR8aQCWDEFP0v-9nuyreV8330viiDXnHD-6RvdQGK8mx"
-export POSTGRES_USER="discourse"
+#This isn't used anymore, either.
 export POSTGRES_CLI="psql -p $POSTGRES_PORT -U root -h $POSTGRES_HOST -d postgres"
